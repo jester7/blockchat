@@ -1,9 +1,50 @@
-h1 {
+:root {
+    --night: #0c0c0cff;
+    --space-cadet: #222244ff;
+    --electric-blue: #56e6ffff;
+    --jasper: #d04436ff;
+    --bg-gradient: linear-gradient(135deg, hsla(5, 62%, 64%, 1) 0%, hsla(240, 33%, 20%, 1) 100%);
+    font-size: 16px;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+html {
+    background: var(--bg-gradient) no-repeat center center fixed;
+}
+
+body {
+    font-size: 1em;
+    font-family: expressway, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+b {
+    font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     display: block;
     margin: 0;
     padding: 0;
     font-family: dejanire-sans, sans-serif;
     font-weight: 900;
     font-style: normal;
+}
+
+h1 {
     font-size: 4em;
 }
