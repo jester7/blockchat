@@ -35,6 +35,7 @@ export const Settings: React.FC<SettingsProps> = ({
             <div className="settings-item">
                 <label htmlFor="userPicture">User Picture:</label>
                 <input
+                    className="user-picture-input"
                     type="text"
                     id="userPicture"
                     value={userPicture}
