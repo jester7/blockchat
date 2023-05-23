@@ -7,4 +7,8 @@ interface IUserSystem {
   function setUsername(string memory username) external;
 
   function setUserInfo(string memory username, string memory userPicture) external;
+
+  function getOrSetToDefaults() external returns (string memory);
+
+  function hasUserPicture() external view returns (bool);
 }

@@ -24,12 +24,17 @@ export const MessageArea: React.FC<MessageAreaProps> = ({ messageIds }) => {
     return (
         <div className="message-area" ref={messageAreaRef}>
             {messageIds.map((id) => {
-                const message = getComponentValueStrict(Messages, id);
-                const sender = message.sender;
-                const senderName = getComponentValueStrict(Users, BigNumber.from(sender).toHexString() as Entity).username;
-                const senderPic = getComponentValueStrict(Users, BigNumber.from(sender).toHexString() as Entity).userPicture;
-                //const datetime = message.datetime;
-                return (<Message key={id} username={senderName} userPicture={senderPic} message={message.message} />);
+                try {
+                    const message = getComponentValueStrict(Messages, id);
+                    const sender = message.sender;
+                    const senderName = getComponentValueStrict(Users, BigNumber.from(sender).toHexString() as Entity).username;
+                    const senderPic = getComponentValueStrict(Users, BigNumber.from(sender).toHexString() as Entity).userPicture;
+                    //const datetime = message.datetime;
+                    return (<Message key={id} username={senderName} userPicture={senderPic} message={message.message} />);
+                } catch (e) {
+                    console.log(e);
+                }
+                
             })}
         </div>
     );

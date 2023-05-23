@@ -34,6 +34,6 @@ export function createSystemCalls(
     increment,
     sendMessage,
     setUsername,
-    setUserInfo
+    setUserInfo,
   };
 }
