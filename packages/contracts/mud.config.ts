@@ -6,5 +6,17 @@ export default mudConfig({
       keySchema: {},
       schema: "uint32",
     },
+    Messages: {
+      schema: {
+        image: "bool",
+        message: "string",
+      },
+    },
+    Users: {
+      schema: {
+        username: "string",
+      },
+    },
+
   },
 });
