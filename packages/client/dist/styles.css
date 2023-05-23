@@ -1,0 +1,184 @@
+:root {
+    --night: #0c0c0cff;
+    --night-alpha: #0c0c0ccf;
+    --space-cadet: #222244ff;
+    --electric-blue: #56e6ffff;
+    --jasper: #d04436ff;
+    --bg-gradient: linear-gradient(135deg, hsla(5, 62%, 64%, 1) 0%, hsla(240, 33%, 20%, 1) 100%);
+    font-size: 16px;
+    --button-gradient: linear-gradient(135deg, hsla(189, 100%, 40%, 1) 0%, hsla(240, 33%, 20%, 1) 100%);
+}
+
+html,
+body {
+    color: var(--space-cadet);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+html {
+    background: var(--bg-gradient) no-repeat center center fixed;
+}
+
+body {
+    font-size: 1em;
+    font-family: expressway, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    padding: 1em 1em;
+}
+
+b {
+    font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-family: dejanire-sans, sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+h1 {
+    font-size: 4em;
+    text-shadow: 0.03em 0.03em 0.05em var(--night-alpha);
+}
+
+h1.title {
+    position: fixed;
+}
+
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    background-image: url('/android-chrome-512x512.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0 -.1em;
+}
+
+.message-input {
+    position: fixed;
+    bottom: 1em;
+}
+
+button {
+    color: white;
+    font-family: dejanire-sans, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.5em;
+    background: var(--button-gradient) no-repeat;
+    border-radius: 0.5em;
+    padding: 0.25em 1em;
+    border: 2px solid var(--electric-blue);
+    letter-spacing: 0.05em;
+}
+
+.message-input button {
+    margin: 0em 1em;
+}
+
+.message-input textarea {
+    border-radius: 0.25em;
+    border: 2px solid var(--electric-blue);
+    font-size: 1em;
+    width: 30em;
+    height: 1.33em;
+    padding: 0.25em 0.5em;
+    display: inline-block;
+}
+
+.message-area {
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    padding-top:6em;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.username {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: gray;
+}
+
+.message-body {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.settings {
+    background-color: var(--night-alpha);
+    padding:1em;
+    font-size: 1.5rem;
+    border-radius: 0.5em;
+    color: white;
+    margin-top:0.5em;
+}
+
+.settings-item {
+    margin: 0.5em 0;
+}
+
+.settings-item input {
+    margin-left: 1em;
+}
+
+.settings button {
+    font-size: 1em;
+}
+
+.user-picture-input {
+    width: 38em;
+}
+
+.settings-button {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-left:1em;
+    vertical-align: middle;
+    padding:0.3em;
+    border:1px solid var(--electric-blue);
+}
