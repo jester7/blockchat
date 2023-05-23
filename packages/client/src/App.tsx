@@ -58,8 +58,9 @@ export const App = () => {
           const message = getComponentValueStrict(Messages, id);
           const sender = message.sender;
           const senderName = getComponentValueStrict(Users, BigNumber.from(sender).toHexString() as Entity).username;
+          const senderPic = getComponentValueStrict(Users, BigNumber.from(sender).toHexString() as Entity).userPicture;
           //const datetime = message.datetime;
-          return ( <Message key={id} username={senderName} userPicture="" message={message.message} />);
+          return ( <Message key={id} username={senderName} userPicture={senderPic} message={message.message} />);
         }) }
       </div>
       <div>
