@@ -15,7 +15,6 @@ contract MessageSystem is System {
         bytes32 id = getUniqueEntity();
         bytes32 sender = addressToEntity(_msgSender());
         Messages.set(id, MessagesData({
-                image: false,
                 sender: sender,
                 datetime: block.timestamp,
                 message: message

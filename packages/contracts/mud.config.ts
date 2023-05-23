@@ -8,15 +8,16 @@ export default mudConfig({
     },
     Messages: {
       schema: {
-        image: "bool",
         sender: "bytes32",
         datetime: "uint256",
         message: "string",
       },
     },
     Users: {
+      keySchema: {
+        user: "bytes32",
+      },
       schema: {
-        address: "bytes32",
         userPicture: "string",
         username: "string",
       },
