@@ -8,7 +8,7 @@ import { useState } from "react";
 export const App = () => {
   const {
     components: { Counter, Messages },
-    systemCalls: { increment, sendMessage },
+    systemCalls: { increment, sendMessage, setUsername, setUserInfo },
     network: { singletonEntity, storeCache },
   } = useMUD();
 
@@ -23,11 +23,6 @@ export const App = () => {
     setShowSettings(!showSettings);
   };
 
-  const handleUpdateSettings = (username: string, userPicture: string) => {
-    // handle updating settings here
-  };
-
-
   return (
     <>
     <h1 className="title">
@@ -38,7 +33,7 @@ export const App = () => {
         <Settings
           username="jovan"
           userPicture="/android-chrome-192x192.png"
-          onUpdateSettings={handleUpdateSettings}
+          onUpdateUserInfo={setUserInfo}
         />
       )}
     </h1>

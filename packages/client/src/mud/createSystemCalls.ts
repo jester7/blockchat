@@ -25,8 +25,15 @@ export function createSystemCalls(
     await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
   };
 
+  const setUserInfo = async (username: string, userPicture: string) => {
+    const tx = await worldSend("setUserInfo", [username, userPicture]);
+    await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
+  };
+
   return {
     increment,
     sendMessage,
+    setUsername,
+    setUserInfo
   };
 }

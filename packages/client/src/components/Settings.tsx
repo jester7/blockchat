@@ -3,19 +3,19 @@ import React, { useState } from "react";
 interface SettingsProps {
     username: string;
     userPicture: string;
-    onUpdateSettings: (username: string, userPicture: string) => void;
+    onUpdateUserInfo: (username: string, userPicture: string) => void;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
     username: initialUsername,
     userPicture: initialUserPicture,
-    onUpdateSettings,
+    onUpdateUserInfo,
 }) => {
     const [username, setUsername] = useState(initialUsername);
     const [userPicture, setUserPicture] = useState(initialUserPicture);
 
     const handleUpdateSettings = () => {
-        onUpdateSettings(username, userPicture);
+        onUpdateUserInfo(username, userPicture);
     };
 
     return (
