@@ -6,6 +6,7 @@ import { Entity, Has, getComponentValueStrict } from "@latticexyz/recs";
 import { useState } from "react";
 import { Message } from "./components/Message";
 import { BigNumber } from "ethers";
+import { MessageArea } from "./components/MessageArea";
 
 export const App = () => {
   const {
@@ -54,14 +55,7 @@ export const App = () => {
         Increment
       </button> */}
       <div className="message-container">
-        { messageIds.map((id) => {
-          const message = getComponentValueStrict(Messages, id);
-          const sender = message.sender;
-          const senderName = getComponentValueStrict(Users, BigNumber.from(sender).toHexString() as Entity).username;
-          const senderPic = getComponentValueStrict(Users, BigNumber.from(sender).toHexString() as Entity).userPicture;
-          //const datetime = message.datetime;
-          return ( <Message key={id} username={senderName} userPicture={senderPic} message={message.message} />);
-        }) }
+        <MessageArea messageIds={messageIds}/>
       </div>
       <div>
         <MessageInput onSendMessage={sendMessage} />
