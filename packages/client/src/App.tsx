@@ -1,6 +1,7 @@
-import { useComponentValue, useRow } from "@latticexyz/react";
+import { useComponentValue, useEntityQuery, useRow } from "@latticexyz/react";
 import { useMUD } from "./MUDContext";
 import { MessageInput } from "./components/MessageInput";
+import { Has, getComponentValueStrict } from "@latticexyz/recs";
 
 export const App = () => {
   const {
@@ -8,6 +9,8 @@ export const App = () => {
     systemCalls: { increment, sendMessage },
     network: { singletonEntity, storeCache },
   } = useMUD();
+
+  const messageIds = useEntityQuery([Has(Messages)]);
 
   //const counter = useComponentValue(Counter, singletonEntity);
   const counter = useRow(storeCache, {table: "Counter", key: {}});
@@ -30,6 +33,12 @@ export const App = () => {
       >
         Increment
       </button> */}
+      <div className="message-container">
+        { messageIds.map((id) => {
+          const message = getComponentValueStrict(Messages, id);
+          return ( <div key={id}> {message.message} </div>);
+        }) }
+      </div>
       <div>
         <MessageInput onSendMessage={sendMessage} />
       </div>

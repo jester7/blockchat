@@ -98,5 +98,6 @@ button {
     font-size: 1em;
     width: 30em;
     height: 1.33em;
+    padding: 0.25em 0.5em;
     display: inline-block;
 }
