@@ -16,9 +16,10 @@ export const App = () => {
   } = useMUD();
 
   const messageIds = useEntityQuery([Has(Messages)]);
+  const users = useEntityQuery([Has(Users)]);
 
   //const counter = useComponentValue(Counter, singletonEntity);
-  const counter = useRow(storeCache, {table: "Counter", key: {}});
+  const counter = useRow(storeCache, { table: "Counter", key: {} });
 
   const [showSettings, setShowSettings] = useState(false);
 
@@ -28,19 +29,19 @@ export const App = () => {
 
   return (
     <>
-    <h1 className="title">
-      <div className="icon"></div>
-      BlockChat
-      <button className="settings-button" onClick={handleToggleSettings}>⚙️</button>
-      {showSettings && (
-        <Settings
-          username="jovan"
-          userPicture="/android-chrome-192x192.png"
-          onUpdateUserInfo={setUserInfo}
-          onUpdateFinished={() => setShowSettings(false)}
-        />
-      )}
-    </h1>
+      <h1 className="title">
+        <div className="icon"></div>
+        BlockChat
+        <button className="settings-button" onClick={handleToggleSettings}>⚙️</button>
+        {showSettings && (
+          <Settings
+            username="jovan"
+            userPicture="/android-chrome-192x192.png"
+            onUpdateUserInfo={setUserInfo}
+            onUpdateFinished={handleToggleSettings}
+          />
+        )}
+      </h1>
       {/* <div>
        Counter: <span>{counter?.value ?? "??"}</span>
         Counter: <span>{counter?.value.value ?? "??"}</span>
@@ -54,9 +55,7 @@ export const App = () => {
       >
         Increment
       </button> */}
-      <div className="message-container">
-        <MessageArea messageIds={messageIds}/>
-      </div>
+      <MessageArea key={users.toString()} messageIds={messageIds} />
       <div>
         <MessageInput onSendMessage={sendMessage} />
       </div>
