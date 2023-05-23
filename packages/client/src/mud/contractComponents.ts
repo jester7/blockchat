@@ -26,6 +26,8 @@ export function defineContractComponents(world: World) {
         world,
         {
           image: RecsType.Boolean,
+          sender: RecsType.String,
+          datetime: RecsType.BigInt,
           message: RecsType.String,
         },
         {
@@ -41,6 +43,8 @@ export function defineContractComponents(world: World) {
       return defineComponent(
         world,
         {
+          address: RecsType.String,
+          userPicture: RecsType.String,
           username: RecsType.String,
         },
         {

@@ -22,15 +22,19 @@ bytes32 constant MessagesTableId = _tableId;
 
 struct MessagesData {
   bool image;
+  bytes32 sender;
+  uint256 datetime;
   string message;
 }
 
 library Messages {
   /** Get the table's schema */
   function getSchema() internal pure returns (Schema) {
-    SchemaType[] memory _schema = new SchemaType[](2);
+    SchemaType[] memory _schema = new SchemaType[](4);
     _schema[0] = SchemaType.BOOL;
-    _schema[1] = SchemaType.STRING;
+    _schema[1] = SchemaType.BYTES32;
+    _schema[2] = SchemaType.UINT256;
+    _schema[3] = SchemaType.STRING;
 
     return SchemaLib.encode(_schema);
   }
@@ -44,9 +48,11 @@ library Messages {
 
   /** Get the table's metadata */
   function getMetadata() internal pure returns (string memory, string[] memory) {
-    string[] memory _fieldNames = new string[](2);
+    string[] memory _fieldNames = new string[](4);
     _fieldNames[0] = "image";
-    _fieldNames[1] = "message";
+    _fieldNames[1] = "sender";
+    _fieldNames[2] = "datetime";
+    _fieldNames[3] = "message";
     return ("Messages", _fieldNames);
   }
 
@@ -106,12 +112,80 @@ library Messages {
     _store.setField(_tableId, _keyTuple, 0, abi.encodePacked((image)));
   }
 
+  /** Get sender */
+  function getSender(bytes32 key) internal view returns (bytes32 sender) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    bytes memory _blob = StoreSwitch.getField(_tableId, _keyTuple, 1);
+    return (Bytes.slice32(_blob, 0));
+  }
+
+  /** Get sender (using the specified store) */
+  function getSender(IStore _store, bytes32 key) internal view returns (bytes32 sender) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    bytes memory _blob = _store.getField(_tableId, _keyTuple, 1);
+    return (Bytes.slice32(_blob, 0));
+  }
+
+  /** Set sender */
+  function setSender(bytes32 key, bytes32 sender) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    StoreSwitch.setField(_tableId, _keyTuple, 1, abi.encodePacked((sender)));
+  }
+
+  /** Set sender (using the specified store) */
+  function setSender(IStore _store, bytes32 key, bytes32 sender) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    _store.setField(_tableId, _keyTuple, 1, abi.encodePacked((sender)));
+  }
+
+  /** Get datetime */
+  function getDatetime(bytes32 key) internal view returns (uint256 datetime) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    bytes memory _blob = StoreSwitch.getField(_tableId, _keyTuple, 2);
+    return (uint256(Bytes.slice32(_blob, 0)));
+  }
+
+  /** Get datetime (using the specified store) */
+  function getDatetime(IStore _store, bytes32 key) internal view returns (uint256 datetime) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    bytes memory _blob = _store.getField(_tableId, _keyTuple, 2);
+    return (uint256(Bytes.slice32(_blob, 0)));
+  }
+
+  /** Set datetime */
+  function setDatetime(bytes32 key, uint256 datetime) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    StoreSwitch.setField(_tableId, _keyTuple, 2, abi.encodePacked((datetime)));
+  }
+
+  /** Set datetime (using the specified store) */
+  function setDatetime(IStore _store, bytes32 key, uint256 datetime) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = bytes32((key));
+
+    _store.setField(_tableId, _keyTuple, 2, abi.encodePacked((datetime)));
+  }
+
   /** Get message */
   function getMessage(bytes32 key) internal view returns (string memory message) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    bytes memory _blob = StoreSwitch.getField(_tableId, _keyTuple, 1);
+    bytes memory _blob = StoreSwitch.getField(_tableId, _keyTuple, 3);
     return (string(_blob));
   }
 
@@ -120,7 +194,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    bytes memory _blob = _store.getField(_tableId, _keyTuple, 1);
+    bytes memory _blob = _store.getField(_tableId, _keyTuple, 3);
     return (string(_blob));
   }
 
@@ -129,7 +203,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    StoreSwitch.setField(_tableId, _keyTuple, 1, bytes((message)));
+    StoreSwitch.setField(_tableId, _keyTuple, 3, bytes((message)));
   }
 
   /** Set message (using the specified store) */
@@ -137,7 +211,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    _store.setField(_tableId, _keyTuple, 1, bytes((message)));
+    _store.setField(_tableId, _keyTuple, 3, bytes((message)));
   }
 
   /** Get the length of message */
@@ -145,7 +219,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    uint256 _byteLength = StoreSwitch.getFieldLength(_tableId, _keyTuple, 1, getSchema());
+    uint256 _byteLength = StoreSwitch.getFieldLength(_tableId, _keyTuple, 3, getSchema());
     return _byteLength / 1;
   }
 
@@ -154,7 +228,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    uint256 _byteLength = _store.getFieldLength(_tableId, _keyTuple, 1, getSchema());
+    uint256 _byteLength = _store.getFieldLength(_tableId, _keyTuple, 3, getSchema());
     return _byteLength / 1;
   }
 
@@ -163,7 +237,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    bytes memory _blob = StoreSwitch.getFieldSlice(_tableId, _keyTuple, 1, getSchema(), _index * 1, (_index + 1) * 1);
+    bytes memory _blob = StoreSwitch.getFieldSlice(_tableId, _keyTuple, 3, getSchema(), _index * 1, (_index + 1) * 1);
     return (string(_blob));
   }
 
@@ -172,7 +246,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    bytes memory _blob = _store.getFieldSlice(_tableId, _keyTuple, 1, getSchema(), _index * 1, (_index + 1) * 1);
+    bytes memory _blob = _store.getFieldSlice(_tableId, _keyTuple, 3, getSchema(), _index * 1, (_index + 1) * 1);
     return (string(_blob));
   }
 
@@ -181,7 +255,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    StoreSwitch.pushToField(_tableId, _keyTuple, 1, bytes((_slice)));
+    StoreSwitch.pushToField(_tableId, _keyTuple, 3, bytes((_slice)));
   }
 
   /** Push a slice to message (using the specified store) */
@@ -189,7 +263,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    _store.pushToField(_tableId, _keyTuple, 1, bytes((_slice)));
+    _store.pushToField(_tableId, _keyTuple, 3, bytes((_slice)));
   }
 
   /** Pop a slice from message */
@@ -197,7 +271,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    StoreSwitch.popFromField(_tableId, _keyTuple, 1, 1);
+    StoreSwitch.popFromField(_tableId, _keyTuple, 3, 1);
   }
 
   /** Pop a slice from message (using the specified store) */
@@ -205,7 +279,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    _store.popFromField(_tableId, _keyTuple, 1, 1);
+    _store.popFromField(_tableId, _keyTuple, 3, 1);
   }
 
   /** Update a slice of message at `_index` */
@@ -213,7 +287,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    StoreSwitch.updateInField(_tableId, _keyTuple, 1, _index * 1, bytes((_slice)));
+    StoreSwitch.updateInField(_tableId, _keyTuple, 3, _index * 1, bytes((_slice)));
   }
 
   /** Update a slice of message (using the specified store) at `_index` */
@@ -221,7 +295,7 @@ library Messages {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
 
-    _store.updateInField(_tableId, _keyTuple, 1, _index * 1, bytes((_slice)));
+    _store.updateInField(_tableId, _keyTuple, 3, _index * 1, bytes((_slice)));
   }
 
   /** Get the full data */
@@ -243,8 +317,8 @@ library Messages {
   }
 
   /** Set the full data using individual values */
-  function set(bytes32 key, bool image, string memory message) internal {
-    bytes memory _data = encode(image, message);
+  function set(bytes32 key, bool image, bytes32 sender, uint256 datetime, string memory message) internal {
+    bytes memory _data = encode(image, sender, datetime, message);
 
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
@@ -253,8 +327,15 @@ library Messages {
   }
 
   /** Set the full data using individual values (using the specified store) */
-  function set(IStore _store, bytes32 key, bool image, string memory message) internal {
-    bytes memory _data = encode(image, message);
+  function set(
+    IStore _store,
+    bytes32 key,
+    bool image,
+    bytes32 sender,
+    uint256 datetime,
+    string memory message
+  ) internal {
+    bytes memory _data = encode(image, sender, datetime, message);
 
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = bytes32((key));
@@ -264,26 +345,30 @@ library Messages {
 
   /** Set the full data using the data struct */
   function set(bytes32 key, MessagesData memory _table) internal {
-    set(key, _table.image, _table.message);
+    set(key, _table.image, _table.sender, _table.datetime, _table.message);
   }
 
   /** Set the full data using the data struct (using the specified store) */
   function set(IStore _store, bytes32 key, MessagesData memory _table) internal {
-    set(_store, key, _table.image, _table.message);
+    set(_store, key, _table.image, _table.sender, _table.datetime, _table.message);
   }
 
   /** Decode the tightly packed blob using this table's schema */
   function decode(bytes memory _blob) internal view returns (MessagesData memory _table) {
-    // 1 is the total byte length of static data
-    PackedCounter _encodedLengths = PackedCounter.wrap(Bytes.slice32(_blob, 1));
+    // 65 is the total byte length of static data
+    PackedCounter _encodedLengths = PackedCounter.wrap(Bytes.slice32(_blob, 65));
 
     _table.image = (_toBool(uint8(Bytes.slice1(_blob, 0))));
 
+    _table.sender = (Bytes.slice32(_blob, 1));
+
+    _table.datetime = (uint256(Bytes.slice32(_blob, 33)));
+
     // Store trims the blob if dynamic fields are all empty
-    if (_blob.length > 1) {
+    if (_blob.length > 65) {
       uint256 _start;
       // skip static data length + dynamic lengths word
-      uint256 _end = 33;
+      uint256 _end = 97;
 
       _start = _end;
       _end += _encodedLengths.atIndex(0);
@@ -292,12 +377,17 @@ library Messages {
   }
 
   /** Tightly pack full data using this table's schema */
-  function encode(bool image, string memory message) internal view returns (bytes memory) {
+  function encode(
+    bool image,
+    bytes32 sender,
+    uint256 datetime,
+    string memory message
+  ) internal view returns (bytes memory) {
     uint40[] memory _counters = new uint40[](1);
     _counters[0] = uint40(bytes(message).length);
     PackedCounter _encodedLengths = PackedCounterLib.pack(_counters);
 
-    return abi.encodePacked(image, _encodedLengths.unwrap(), bytes((message)));
+    return abi.encodePacked(image, sender, datetime, _encodedLengths.unwrap(), bytes((message)));
   }
 
   /** Encode keys as a bytes32 array using this table's schema */
