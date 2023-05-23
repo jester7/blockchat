@@ -2,12 +2,14 @@ import { useComponentValue, useEntityQuery, useRow } from "@latticexyz/react";
 import { useMUD } from "./MUDContext";
 import { MessageInput } from "./components/MessageInput";
 import { Settings } from "./components/Settings";
-import { Has, getComponentValueStrict } from "@latticexyz/recs";
+import { Entity, Has, getComponentValueStrict } from "@latticexyz/recs";
 import { useState } from "react";
+import { Message } from "./components/Message";
+import { BigNumber } from "ethers";
 
 export const App = () => {
   const {
-    components: { Counter, Messages },
+    components: { Counter, Messages, Users },
     systemCalls: { increment, sendMessage, setUsername, setUserInfo },
     network: { singletonEntity, storeCache },
   } = useMUD();
@@ -34,6 +36,7 @@ export const App = () => {
           username="jovan"
           userPicture="/android-chrome-192x192.png"
           onUpdateUserInfo={setUserInfo}
+          onUpdateFinished={() => setShowSettings(false)}
         />
       )}
     </h1>
@@ -53,7 +56,10 @@ export const App = () => {
       <div className="message-container">
         { messageIds.map((id) => {
           const message = getComponentValueStrict(Messages, id);
-          return ( <div key={id}> {message.message} </div>);
+          const sender = message.sender;
+          const senderName = getComponentValueStrict(Users, BigNumber.from(sender).toHexString() as Entity).username;
+          //const datetime = message.datetime;
+          return ( <Message key={id} username={senderName} userPicture="" message={message.message} />);
         }) }
       </div>
       <div>

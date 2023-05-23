@@ -5,7 +5,7 @@ interface MessageAreaProps {
   messages: {
     username: string;
     userPicture: string;
-    datetime: string;
+    // datetime: string;
     message: string;
   }[];
 }
@@ -18,7 +18,7 @@ export const MessageArea: React.FC<MessageAreaProps> = ({ messages }) => {
           key={index}
           username={message.username}
           userPicture={message.userPicture}
-          datetime={message.datetime}
+        //   datetime={message.datetime}
           message={message.message}
         />
       ))}
