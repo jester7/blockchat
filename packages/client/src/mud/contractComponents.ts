@@ -42,8 +42,8 @@ export function defineContractComponents(world: World) {
       return defineComponent(
         world,
         {
-          userPicture: RecsType.String,
           username: RecsType.String,
+          userPicture: RecsType.String,
         },
         {
           metadata: {

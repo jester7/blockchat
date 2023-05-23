@@ -18,8 +18,8 @@ export default mudConfig({
         user: "bytes32",
       },
       schema: {
-        userPicture: "string",
         username: "string",
+        userPicture: "string",
       },
     },
   },
