@@ -20,4 +20,14 @@ contract UserSystem is System {
                 userPicture: Users.getUserPicture(sender)
             }));
     }
+
+    function setUserInfo(string memory username, string memory userPicture) public {
+        bytes32 sender = addressToEntity(_msgSender());
+        console.log("setUserInfo: %s with userpic <%s>", username, userPicture);
+
+        Users.set(sender, UsersData({
+                username: username,
+                userPicture: userPicture
+            }));
+    }
 }

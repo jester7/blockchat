@@ -5,4 +5,6 @@ pragma solidity >=0.8.0;
 
 interface IUserSystem {
   function setUsername(string memory username) external;
+
+  function setUserInfo(string memory username, string memory userPicture) external;
 }
