@@ -15,7 +15,13 @@ export function createSystemCalls(
     return getComponentValue(Counter, singletonEntity);
   };
 
+  const sendMessage = async (message: string) => {
+    const tx = await worldSend("sendMessage", [message]);
+    await awaitStreamValue(txReduced$, (txHash) => txHash === tx.hash);
+  };
+
   return {
     increment,
+    sendMessage,
   };
 }
