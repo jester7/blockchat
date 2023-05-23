@@ -13,9 +13,12 @@ export const App = () => {
   const counter = useRow(storeCache, {table: "Counter", key: {}});
   return (
     <>
-    <h1>BlockChat</h1>
-      <div>
-      {/* Counter: <span>{counter?.value ?? "??"}</span> */}
+    <h1 className="title">
+      <div className="icon"></div>
+      BlockChat
+    </h1>
+      {/* <div>
+       Counter: <span>{counter?.value ?? "??"}</span>
         Counter: <span>{counter?.value.value ?? "??"}</span>
       </div>
       <button
@@ -26,7 +29,7 @@ export const App = () => {
         }}
       >
         Increment
-      </button>
+      </button> */}
       <div>
         <MessageInput onSendMessage={sendMessage} />
       </div>

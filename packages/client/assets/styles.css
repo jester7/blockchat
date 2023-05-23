@@ -1,14 +1,17 @@
 :root {
     --night: #0c0c0cff;
+    --night-alpha: #0c0c0caf;
     --space-cadet: #222244ff;
     --electric-blue: #56e6ffff;
     --jasper: #d04436ff;
     --bg-gradient: linear-gradient(135deg, hsla(5, 62%, 64%, 1) 0%, hsla(240, 33%, 20%, 1) 100%);
     font-size: 16px;
+    --button-gradient: linear-gradient(135deg, hsla(189, 100%, 40%, 1) 0%, hsla(240, 33%, 20%, 1) 100%);
 }
 
 html,
 body {
+    color: var(--space-cadet);
     margin: 0;
     padding: 0;
     width: 100%;
@@ -25,6 +28,8 @@ body {
     font-family: expressway, sans-serif;
     font-weight: 400;
     font-style: normal;
+
+    padding: 1em 1em;
 }
 
 b {
@@ -47,4 +52,51 @@ h6 {
 
 h1 {
     font-size: 4em;
+    text-shadow: 0.03em 0.03em 0.05em var(--night-alpha);
+}
+
+h1.title {
+    position: fixed;
+}
+
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    background-image: url('/android-chrome-512x512.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0 -.1em;
+}
+
+.message-input {
+    position: fixed;
+    bottom: 1em;
+}
+
+button {
+    color: white;
+    font-family: dejanire-sans, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.5em;
+    background: var(--button-gradient) no-repeat;
+    border-radius: 0.5em;
+    padding: 0.25em 1em;
+    border: 2px solid var(--electric-blue);
+    letter-spacing: 0.05em;
+}
+
+.message-input button {
+    margin: 0em 1em;
+}
+
+.message-input textarea {
+    border-radius: 0.25em;
+    border: 2px solid var(--electric-blue);
+    font-size: 1em;
+    width: 30em;
+    height: 1.33em;
+    display: inline-block;
 }
