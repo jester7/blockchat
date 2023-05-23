@@ -14,15 +14,14 @@ export const Message: React.FC<MessageProps> = ({
   message,
 }) => {
   return (
-    <div className="message-bubble">
-      <div className="message-header">
-        <img src={userPicture} />
-        <div className="message-info">
-          <div className="message-username">{username}</div>
-          {/* <div className="message-datetime">{datetime}</div> */}
+    <div className="message">
+      <img className="user-picture" src={userPicture} alt={`${username}'s profile picture`} />
+      <div className="message-content">
+        <div className="message-header">
+          <span className="username">{username}</span>
         </div>
+        <div className="message-body">{message}</div>
       </div>
-      <div className="message-text">{message}</div>
     </div>
   );
 };
