@@ -35,8 +35,6 @@ export const App = () => {
         <button className="settings-button" onClick={handleToggleSettings}>⚙️</button>
         {showSettings && (
           <Settings
-            username="jovan"
-            userPicture="/android-chrome-192x192.png"
             onUpdateUserInfo={setUserInfo}
             onUpdateFinished={handleToggleSettings}
           />
