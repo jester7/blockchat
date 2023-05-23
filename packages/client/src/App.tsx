@@ -13,6 +13,7 @@ export const App = () => {
   const counter = useRow(storeCache, {table: "Counter", key: {}});
   return (
     <>
+    <h1>BlockChat</h1>
       <div>
       {/* Counter: <span>{counter?.value ?? "??"}</span> */}
         Counter: <span>{counter?.value.value ?? "??"}</span>
