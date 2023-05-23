@@ -17,6 +17,12 @@ export default mudConfig({
         username: "string",
       },
     },
-
   },
+  modules: [
+    {
+      name: "UniqueEntityModule",
+      root: true,
+      args: [],
+    }
+  ],
 });
